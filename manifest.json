@@ -11,7 +11,7 @@
     "version": "1.4",
     "maintainer": {
         "name": "Anmol Sharma",
-        "email": "anmol@datamol.org",
+        "email": "anmol@datamol.org"
     },
     "services": [
         "nginx",
