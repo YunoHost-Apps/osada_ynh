@@ -1,0 +1,6 @@
+SOURCE_URL=https://framagit.org/macgirvin/osada/-/archive/1.4/osada-1.4.tar.gz
+SOURCE_SUM=65b97a5167cd560b517448881fe96be96412007f1e4e3ac8380ac7d1cf2b89b5
+SOURCE_SUM_PRG=sha256sum
+SOURCE_FORMAT=tar.gz
+SOURCE_IN_SUBDIR=
+SOURCE_FILENAME=

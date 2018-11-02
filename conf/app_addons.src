@@ -1,0 +1,6 @@
+SOURCE_URL=https://framagit.org/macgirvin/osada-addons/-/archive/master/osada-addons-master.tar.gz
+SOURCE_SUM=e918f390b34da2f18357aee38ce21efe700358904ffa786846bc1a59f9029247
+SOURCE_SUM_PRG=sha256sum
+SOURCE_FORMAT=tar.gz
+SOURCE_IN_SUBDIR=
+SOURCE_FILENAME=
