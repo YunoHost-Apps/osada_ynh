@@ -1,0 +1,1 @@
+define('NOMADIC',1);
