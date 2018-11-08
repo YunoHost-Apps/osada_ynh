@@ -2,6 +2,7 @@
 	auto_remove=1
 	; Manifest
 		domain="domain.tld"	(DOMAIN)
+		protocol="osada"
 		admin="john"	(USER)
 		; Checks
 			pkg_linter=1
