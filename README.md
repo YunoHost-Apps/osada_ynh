@@ -3,8 +3,16 @@
 [![Integration level](https://dash.yunohost.org/integration/osada.svg)](https://ci-apps.yunohost.org/jenkins/job/osada%20%28Community%29/lastBuild/consoleFull)
 
 [![Install osada with YunoHost](https://install-app.yunohost.org/install-with-yunohost.png)](https://install-app.yunohost.org/?app=osada) <br><br>
-**Shipped version:** 1.6
+
+Shipped version: **2.0.1**
 <br>
+### Interesting links
+
+- [YunoHost project](https://yunohost.org)
+- [Osada/Zap website](http://zotlabs.com/osada/)
+- [Osada/Zap code on Framagit](https://framagit.org/macgirvin/osada)
+- [Osada/Zap addons on Framagit](https://framagit.org/macgirvin/osada-addons)
+
 ## Osada
 [Osada](http://zotlabs.com/osada/) uses **Zot6 protocol** which is next version of **zot5 protocol** used by [Hubzilla](http://hubzilla.org). Osada has native support for the **ActivityPub protocol** (W3C standard) as well as the more advanced features. It can inter-operate with other social networking applications and projects in either of these spaces, including **Mastodon, Pleroma, Pixelfed, PeerTube, Funkwhale, Zap, Friendica, Hubzilla,** and many more. <br>
 
