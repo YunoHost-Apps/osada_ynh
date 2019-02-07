@@ -1,5 +1,5 @@
-SOURCE_URL=https://framagit.org/macgirvin/osada-addons/-/archive/938d5f658b9b7173e37ac776aced5f096d8bd843/osada-addons-938d5f658b9b7173e37ac776aced5f096d8bd843.tar.gz
-SOURCE_SUM=743eaf0f0329949d67a86dbd97309baed6ac0363c6acc38be21697c1a9eac044
+SOURCE_URL=https://framagit.org/macgirvin/osada-addons/-/archive/f6d922bad27dd41c532cae370eb447271b84b749/osada-addons-f6d922bad27dd41c532cae370eb447271b84b749.tar.gz
+SOURCE_SUM=260cb35e7fa3ad90a6d728e01f018a6ec40a8cdc6e8a636be0d37db756c562b9
 SOURCE_SUM_PRG=sha256sum
 SOURCE_FORMAT=tar.gz
 SOURCE_IN_SUBDIR=

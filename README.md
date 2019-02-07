@@ -4,7 +4,7 @@
 
 [![Install osada with YunoHost](https://install-app.yunohost.org/install-with-yunohost.png)](https://install-app.yunohost.org/?app=osada) <br><br>
 
-Shipped version: **2.0.1**
+Shipped version: **2.2**
 <br>
 ### Interesting links
 
