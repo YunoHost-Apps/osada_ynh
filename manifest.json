@@ -33,14 +33,6 @@
                 }
             },
             {
-                "name": "protocol",
-                "ask": {
-                    "en": "Choose the protocol OSADA or ZAP (Osada can connect with other network like Mastodon,Pleroma,Peertube,Funkwhale but loose the abilty to nomadic identity. Zap has the nomadic abilty but will not connect to other networks thus is more secure."
-                },
-                "choices": ["osada","zap"],
-                "default": "osada"
-			},
-            {
                 "name": "admin",
                 "type": "user",
                 "ask": {

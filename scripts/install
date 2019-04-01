@@ -24,7 +24,6 @@ domain=$YNH_APP_ARG_DOMAIN
 path_url="/"
 admin=$YNH_APP_ARG_ADMIN
 email=$(sudo yunohost user info $admin | grep "mail:" | cut -d' ' -f2)
-protocol=$YNH_APP_ARG_PROTOCOL
 upload="256M"
 database="1"
 
@@ -61,7 +60,6 @@ ynh_app_setting_set $app path $path_url
 ynh_app_setting_set $app admin $admin
 ynh_app_setting_set $app email $email
 ynh_app_setting_set $app upload $upload
-ynh_app_setting_set $app protocol $protocol
 ynh_app_setting_set $app database $database
 
 
@@ -112,11 +110,6 @@ sudo sed -i "s@//ini_set('error_log','php.out');@ini_set('error_log','php.log');
 sudo sed -i "s@//ini_set('log_errors','1');@ini_set('log_errors','1');@g" $final_path/.htconfig.php
 sudo sed -i "s@//ini_set('display_errors', '0');@ini_set('display_errors', '0');@g" $final_path/.htconfig.php
 
-# Set THE PROTOCOL TO USE
-if [ "$protocol" = "zap" ]; then
-	# setup application config
-	sudo su -c "cat ../conf/zap.php >> $final_path/.htconfig.php"
-fi
 	
 # addon ldap config
 sudo su -c "cat ../conf/ldap_conf.php >> $final_path/.htconfig.php"
