@@ -46,8 +46,8 @@ If you don't have YunoHost, please see [here](https://yunohost.org/#/install) to
 
 - [YunoHost project](https://yunohost.org)
 - [Osada website](http://zotlabs.com/osada/)
-- [Osada code on Framagit](https://codeberg.org/zot/osada)
-- [Osada addons on Framagit](https://codeberg.org/zot/osada-addons)
+- [Osada code on Codeberg](https://codeberg.org/zot/osada)
+- [Osada addons on Codeberg](https://codeberg.org/zot/osada-addons)
 
 ---
 
