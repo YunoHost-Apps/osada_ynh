@@ -1,1 +1,0 @@
-define('NOMADIC',1);

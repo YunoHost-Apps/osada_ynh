@@ -7,19 +7,20 @@
         "fr": "Osada est une plateforme de publication décentralisée et un réseau social."
     },
     "url": "http://zotlabs.com/osada/",
-    "license": "Free as-is",
-    "version": "2.2",
+    "license": "MIT",
+    "version": "21.02.11~ynh1",
     "maintainer": {
         "name": "Anmol Sharma",
-        "email": "anmol@datamol.org"
+        "email": ""
     },
     "services": [
         "nginx",
-        "php5-fpm",
-        "mysql"
+        "php7.0-fpm",
+        "mysql",
+        "postgresql"
     ],
     "requirements": {
-        "yunohost": ">= 3.0.0"
+        "yunohost": ">= 4.0.0"
     },
     "multi_instance": true,
     "arguments": {
@@ -39,6 +40,16 @@
                     "en": "Choose the Osada administrator (must be an existing YunoHost user)",
                     "fr": "Choisissez l'administrateur de Osada (doit être un utilisateur YunoHost existant)"
                 }
+            },
+            {
+                "name": "database",
+                "type": "string",
+                "ask": {
+                    "en": "Choose the database to be used for the Osada [mysql:1,postgresql:2]",
+                    "fr": "Choisissez la database de Osada [mysql:1,postgresql:2]"
+                },
+                "choices": ["1", "2"],
+                "default": "1"
             }
         ]
     }
