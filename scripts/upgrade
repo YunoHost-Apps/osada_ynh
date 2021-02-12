@@ -91,7 +91,7 @@ ynh_setup_source --dest_dir="$final_path"
 pushd "$final_path"
     util/udall
 popd
-chmod -R 775 $final_path/store
+chmod -R 777 $final_path/store $final_path/cache
 #=================================================
 # NGINX CONFIGURATION
 #=================================================

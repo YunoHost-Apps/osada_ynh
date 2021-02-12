@@ -84,8 +84,8 @@ git clone https://codeberg.org/zot/osada.git "$final_path"
 # 2 - Osada Addons
 
 # Make addon Directory and unpack the Osada addons to this directory
-ynh_script_progression --message="Create addon directory inside Osada root folder..."
-mkdir $final_path/addon
+# ynh_script_progression --message="Create addon directory inside Osada root folder..."
+# mkdir $final_path/addon
 ynh_script_progression --message="Setting up Osada addons source files..."
 
 # ynh_setup_source --dest_dir="$final_path/addon" --source_id="app_addons"
@@ -96,8 +96,9 @@ popd
 # 3 - Some extra folders
 ynh_script_progression --message="Creating smarty3 folder for personal data..."
 
-mkdir -p "${final_path}/store/[data]/smarty3"
-chmod -R 775 $final_path/store
+mkdir -p "${final_path}/store"
+mkdir -p  "${final_path}/cache/smarty3"
+chmod -R 777 $final_path/store $final_path/cache
 
 # Copy the template install/htconfig.sample.php to .htconfig.php
 ynh_script_progression --message="Moving .htconfig.php to root of Osada ..."
