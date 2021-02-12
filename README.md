@@ -1,32 +1,63 @@
-# Osada for Yunohost
+# Osada for YunoHost
 
-[![Integration level](https://dash.yunohost.org/integration/osada.svg)](https://ci-apps.yunohost.org/jenkins/job/osada%20%28Community%29/lastBuild/consoleFull)
+[![Integration level](https://dash.yunohost.org/integration/osada.svg)](https://dash.yunohost.org/appci/app/osada) ![](https://ci-apps.yunohost.org/ci/badges/osada.status.svg) ![](https://ci-apps.yunohost.org/ci/badges/osada.maintain.svg)
 
-[![Install osada with YunoHost](https://install-app.yunohost.org/install-with-yunohost.png)](https://install-app.yunohost.org/?app=osada) <br><br>
 
-Shipped version: **2.2**
-<br>
+[![Install Osada with YunoHost](https://install-app.yunohost.org/install-with-yunohost.svg)](https://install-app.yunohost.org/?app=osada)
+
+> *This package allow you to install Osada quickly and simply on a YunoHost server.
+If you don't have YunoHost, please see [here](https://yunohost.org/#/install) to know how to install and enjoy it.*
+
+
+## Overview
+[Osada](http://zotlabs.com/osada/) uses **Zot6 protocol** which is next version of **zot5 protocol**. Osada has native support for the **ActivityPub protocol** (W3C standard) as well as the more advanced features. It can inter-operate with other social networking applications and projects in either of these spaces, including **Mastodon, Pleroma, Pixelfed, PeerTube, Funkwhale, Zap, Friendica, Hubzilla,** and many more.
+
+**Shipped version:**  21.02.11
+
+## Screenshots
+
+![](http://zotlabs.com/osada/img/comment_on_posts.gif)
+
+## This app claims following features:
+- [X] LDAP integration
+- [X] Multi-instance
+- [X] Adeed php.log in the root folder for debugging PHP, with logrotate applied on it (can be accesssed by **admin->logs** and entering the **php.log**).
+- [X] Fail2Ban
+- [X] Option to choose between **Mysql** and **PostgreSQL** for the Osada
+
+## Ldap Admin user rights, logs and failed database updates
+
+- **For admin rights**: When installation is complete, you will need to visit your new hub's page and login with the **admin account username** which was entered at the time of installation process. You should then be able to create your first channel and have the **admin rights** for the hub.
+
+- **For normal YunoHost users**: Normal LDAP users can login through LDAP authentication and create there channels.
+
+- **Failing to get admin rights**: If the admin cannot access the admin settings at `https://osada.example.com/admin` then you have to **manually add 4096** to the **account_roles** under **accounts** for that user in the **database through phpMyAdmin**.
+
+- **For logs**: Go to **admin->logs** and enter the file name **php.log**.
+
+- **Failed Database after Upgrade:** Some times databse upgrade fails after version upgrade. You can go to hub eg. `https://osada.example.com/admin/dbsync/` and check the numbers of failled update. These updates will have to be ran manually by **phpMyAdmin**.
+
+#### Supported architectures
+
+* x86-64 - [![Build Status](https://ci-apps.yunohost.org/ci/logs/osada%20%28Official%29.svg)](https://ci-apps.yunohost.org/ci/apps/osada/)
+* ARMv8-A - [![Build Status](https://ci-apps-arm.yunohost.org/ci/logs/osada%20%28Official%29.svg)](https://ci-apps-arm.yunohost.org/ci/apps/osada/)
+
 ### Interesting links
 
 - [YunoHost project](https://yunohost.org)
-- [Osada/Zap website](http://zotlabs.com/osada/)
-- [Osada/Zap code on Framagit](https://framagit.org/macgirvin/osada)
-- [Osada/Zap addons on Framagit](https://framagit.org/macgirvin/osada-addons)
+- [Osada website](http://zotlabs.com/osada/)
+- [Osada code on Codeberg](https://codeberg.org/zot/osada)
+- [Osada addons on Codeberg](https://codeberg.org/zot/osada-addons)
 
-## Osada
-[Osada](http://zotlabs.com/osada/) uses **Zot6 protocol** which is next version of **zot5 protocol** used by [Hubzilla](http://hubzilla.org). Osada has native support for the **ActivityPub protocol** (W3C standard) as well as the more advanced features. It can inter-operate with other social networking applications and projects in either of these spaces, including **Mastodon, Pleroma, Pixelfed, PeerTube, Funkwhale, Zap, Friendica, Hubzilla,** and many more. <br>
+---
 
-<p align="center"><img src="http://zotlabs.com/osada/img/comment_on_posts.gif"></p>
-<br>
+## Developer info
 
-**Osada** is a **social networking** platform specifically designed to be the glue that binds much of the **decentralised** web in a way that has not been **possible before**. It does this not by magic, but by **“speaking the language” of the various decentralised networks** and acting as a translator to pass information between them. Using Osada, you can seamlessly connect and share with your contacts whether they have an account on a Hubzilla server, a Mastodon server, or any of several popular platforms on the open web. 
-<br><br>
+Please send your pull request to the [testing branch](https://github.com/YunoHost-Apps/osada_ynh/tree/testing).
 
-## Important points to know before installing Osada
-1. Osada needs a valid **certificate** for your **domain** before installing Osada. For eg. Lets Encrpypt can be installed from Yunohost admin planel.
-1. Osada will require a **root domain**. Eg. osada.domain.tld
-1. Osada is **Ldap** enabled.
-1. Osada is **multi-instance** app. That means the app can be installed multiple times on a server.
-1. **For logs:** Go to **admin-> logs** and enter the file name as **php.log**.
-
-
+To try the testing branch, please proceed like that.
+```
+sudo yunohost app install https://github.com/YunoHost-Apps/osada_ynh/tree/testing --debug
+or
+sudo yunohost app upgrade osada -u https://github.com/YunoHost-Apps/osada_ynh/tree/testing --debug
+```
