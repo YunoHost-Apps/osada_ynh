@@ -63,7 +63,7 @@ ynh_print_info "Upgrading source files..."
 # cp -a "$final_path/php.log" "$tmpdir/php.log"
 
 # Remove the app directory securely
-ynh_secure_remove "$final_path"
+# ynh_secure_remove "$final_path"
 
 # If final_path doesn't exist, create it
 if [ -z "$final_path" ]; then
