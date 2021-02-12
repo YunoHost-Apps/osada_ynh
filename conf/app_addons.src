@@ -1,5 +1,5 @@
-SOURCE_URL=https://framagit.org/zot/osada-addons/-/archive/2.2/osada-addons-2.2.tar.gz
-SOURCE_SUM=e5185d043fa09ea13a3224a9f0bf4746bc76659ffa6346b1a52f8905dcd980dc
+SOURCE_URL=https://codeberg.org/zot/osada-addons/archive/f114c32aa84f80f940815d2158ddeef9734eb996.tar.gz
+SOURCE_SUM=664fdf03a0a77d358f976f5dd9fdf2b1df1bfa2cbfcc31714264d6562b95096c
 SOURCE_SUM_PRG=sha256sum
 SOURCE_FORMAT=tar.gz
 SOURCE_IN_SUBDIR=
