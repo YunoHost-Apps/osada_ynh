@@ -90,8 +90,33 @@ ynh_script_progression --message="Setting up Osada addons source files..."
 
 # ynh_setup_source --dest_dir="$final_path/addon" --source_id="app_addons"
 pushd "$final_path"
-    util/add_addon_repo https://codeberg.org/zot/osada-addons.git zaddons
+	mkdir -p extend/addon/zaddons
+	mkdir addon
+	git clone  https://codeberg.org/zot/osada-addons.git $final_path/extend/addon/zaddons
+	filelist=(`ls extend/addon/zaddons`)
+	cd addon
+	for a in "${filelist[@]}" ; do
+		base=`basename $a`
+		if [ $base = '.git' ]; then
+			#echo 'ignoring git'
+			continue;
+		fi
+		if [ ! -d ../extend/addon/zaddons/$base ]; then
+			#echo $a 'not a directory'
+			continue;
+		fi
+		if [ -x $base ]; then
+			#echo $base 'file exists'
+			continue;
+		fi
+
+		echo linking $base
+
+		ln -s ../extend/addon/zaddons/$base $base
+	done
+
 popd
+
 
 # 3 - Some extra folders
 ynh_script_progression --message="Creating smarty3 folder for personal data..."
