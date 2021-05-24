@@ -49,6 +49,16 @@ ynh_clean_setup () {
 ynh_abort_if_errors
 
 #=================================================
+# Migrate legacy permissions to new system
+#=================================================
+if ynh_legacy_permissions_exists
+then
+	ynh_legacy_permissions_delete_all
+
+	ynh_app_setting_delete --app=$app --key=is_public
+fi
+
+#=================================================
 # STANDARD UPGRADE STEPS
 #=================================================
 # REMOVE APP MAIN DIR
@@ -222,12 +232,6 @@ elif [ $database -eq 2 ]; then
 	ynh_install_app_dependencies $pkg_dependencies
 fi
 
-#=================================================
-# SETUP SSOWAT
-#=================================================
-# As Osada is social network and have its own permission there is no need to keep Osada behind SSO
-ynh_script_progression --message="Upgrading SSOwat configuration..."
-ynh_app_setting_set --app=$app --key=unprotected_uris --value="/"
 
 #=================================================
 # RELOAD NGINX
