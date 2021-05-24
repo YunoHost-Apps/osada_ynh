@@ -1,5 +1,5 @@
-SOURCE_URL=https://codeberg.org/zot/osada-addons/archive/f114c32aa84f80f940815d2158ddeef9734eb996.tar.gz
-SOURCE_SUM=664fdf03a0a77d358f976f5dd9fdf2b1df1bfa2cbfcc31714264d6562b95096c
+SOURCE_URL=https://codeberg.org/zot/osada-addons/archive/0518974958ef5dbc81829a523753d4d4605bb0b4.tar.gz
+SOURCE_SUM=103591cb295be106d163302a036f5942ba3802db853906defa2186ff599a0a5b
 SOURCE_SUM_PRG=sha256sum
 SOURCE_FORMAT=tar.gz
 SOURCE_IN_SUBDIR=
