@@ -29,7 +29,7 @@ path_url="/"
 admin=$YNH_APP_ARG_ADMIN
 email=$(ynh_user_get_info --username=$admin --key=mail)
 upload="256M"
-random_string="$(ynh_string_random)$(ynh_string_random)$(ynh_string_random)"
+random_string=$(ynh_string_random --length=32)
 database=`expr $YNH_APP_ARG_DATABASE`
 
 app=$YNH_APP_INSTANCE_NAME
@@ -139,7 +139,7 @@ touch "$final_path/php.log"
 chmod 750 "$final_path"
 chmod -R o-rwx "$final_path"
 chown -R $app:www-data "$final_path"
-chmod -R 755 $final_path/store $final_path/cache
+chmod -R 775 $final_path/store $final_path/cache
 
 #=================================================
 # CREATE A  DATABASE
