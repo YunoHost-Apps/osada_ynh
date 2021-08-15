@@ -213,12 +213,14 @@ ynh_add_fpm_config --package="$extra_php_dependencies"
 ynh_script_progression --message="Set right for Osada..."
 chown -R $app: $final_path
 
+#=================================================
+# SET CRON JOB
+#=================================================
+
 # Set up cron job
-ynh_script_progression --message="Setting up cron job..."
-ynh_replace_string --match_string="YNH_WWW_PATH" --replace_string="$final_path"  --target_file="../conf/poller-cron"
-ynh_replace_string --match_string="__USER__" --replace_string="$app"  --target_file="../conf/poller-cron"
-ynh_replace_string --match_string="__PHP_VERSION__" --replace_string="$phpversion"  --target_file="../conf/poller-cron"
-cp ../conf/poller-cron /etc/cron.d/$app
+ynh_add_config --template="../conf/poller-cron" --destination="/etc/cron.d/$app"
+chown root: "/etc/cron.d/$app"
+chmod 644 "/etc/cron.d/$app"
 
 #=================================================
 # STORE THE CONFIG FILE CHECKSUM

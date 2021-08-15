@@ -192,18 +192,21 @@ ynh_script_progression --message="Upgrading logrotate configuration..."
 # Use logrotate to manage app-specific logfile(s)
 ynh_use_logrotate --non-append
 
+#=================================================
 # UPGRADE FAIL2BAN
 #=================================================
 ynh_script_progression --message="Re-configure Fail2Ban..."
 
 ynh_add_fail2ban_config --logpath="$final_path/php.log" --failregex="^.*auth\.php.*failed login attempt.*from IP <HOST>.*$" --max_retry="5"
 
-# Set cron job
-ynh_print_info "Setting up cron job..."
-ynh_replace_string  --match_string="YNH_WWW_PATH" --replace_string="$final_path" --target_file="../conf/poller-cron"
-ynh_replace_string --match_string="__USER__" --replace_string="$app"  --target_file="../conf/poller-cron"
-ynh_replace_string --match_string="__PHP_VERSION__" --replace_string="$phpversion"  --target_file="../conf/poller-cron"
-cp -f ../conf/poller-cron /etc/cron.d/$app
+#=================================================
+# UPGRADE CRON JOB
+#=================================================
+
+# Set up cron job
+ynh_add_config --template="../conf/poller-cron" --destination="/etc/cron.d/$app"
+chown root: "/etc/cron.d/$app"
+chmod 644 "/etc/cron.d/$app"
 
 #=================================================
 # UPGRADE DEPENDENCIES

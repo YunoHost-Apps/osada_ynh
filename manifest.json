@@ -3,8 +3,8 @@
     "id": "osada",
     "name": "osada",
     "description": {
-        "en": "Osada is a decentralized publication platform and social network.",
-        "fr": "Osada est une plateforme de publication décentralisée et un réseau social."
+        "en": "Decentralized publication platform and social network",
+        "fr": "Plateforme de publication décentralisée et un réseau social"
     },
     "url": "http://zotlabs.com/osada/",
     "license": "MIT",
@@ -15,12 +15,12 @@
     },
     "services": [
         "nginx",
-        "php7.0-fpm",
+        "php7.3-fpm",
         "mysql",
         "postgresql"
     ],
     "requirements": {
-        "yunohost": ">= 4.0.0"
+        "yunohost": ">= 4.2.0"
     },
     "multi_instance": true,
     "arguments": {
