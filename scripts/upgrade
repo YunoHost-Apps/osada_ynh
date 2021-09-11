@@ -25,16 +25,6 @@ database=$(ynh_app_setting_get --app=$app --key=database)
 phpversion=$(ynh_app_setting_get --app=$app --key=phpversion)
 
 #=================================================
-# ENSURE DOWNWARD COMPATIBILITY
-#=================================================
-
-# If db_name doesn't exist, create it
-if [ -z "$db_name" ]; then
-	db_name=$(ynh_sanitize_dbid --db_name=$app)
-	ynh_app_setting_set --app=$app --key=db_name --value=$db_name
-fi
-
-#=================================================
 # BACKUP BEFORE UPGRADE THEN ACTIVE TRAP
 #=================================================
 ynh_script_progression --message="Backing up the app before upgrading (may take a while)..."
@@ -49,21 +39,9 @@ ynh_clean_setup () {
 ynh_abort_if_errors
 
 #=================================================
-# STANDARD UPGRADE STEPS
-#=================================================
-# REMOVE APP MAIN DIR
+# ENSURE DOWNWARD COMPATIBILITY
 #=================================================
 ynh_print_info "Upgrading source files..."
-
-# Create a temporary directory
-# tmpdir="$(ynh_smart_mktemp 6000)"
-# Backup the config file in the temp dir
-# cp -a "$final_path/.htconfig.php" "$tmpdir/.htconfig.php"
-# cp -a "$final_path/store" "$tmpdir/store"
-# cp -a "$final_path/php.log" "$tmpdir/php.log"
-
-# Remove the app directory securely
-# ynh_secure_remove "$final_path"
 
 # If final_path doesn't exist, create it
 if [ -z "$final_path" ]; then
@@ -71,8 +49,20 @@ if [ -z "$final_path" ]; then
 	ynh_app_setting_set --app=$app --key=final_path --value=$final_path
 fi
 
+# If db_name doesn't exist, create it
+if [ -z "$db_name" ]; then
+	db_name=$(ynh_sanitize_dbid --db_name=$app)
+	ynh_app_setting_set --app=$app --key=db_name --value=$db_name
+fi
+
 #=================================================
-# STANDARD UPGRADE STEPS
+# CREATE DEDICATED USER
+#=================================================
+ynh_script_progression --message="Making sure dedicated system user exists..."
+
+# Create a dedicated user (if not existing)
+ynh_system_user_create --username=$app --home_dir="$final_path"
+
 #=================================================
 # DOWNLOAD, CHECK AND UNPACK SOURCE
 #=================================================
@@ -148,8 +138,11 @@ else
 	chmod -R 777 $final_path/store
 	mkdir $final_path/addon
 	ynh_setup_source --dest_dir="$final_path/addon" --source_id="app_addons"
-
 fi
+
+chmod 750 "$final_path"
+chmod -R o-rwx "$final_path"
+chown -R $app:www-data "$final_path"
 
 #=================================================
 # NGINX CONFIGURATION
@@ -158,17 +151,6 @@ ynh_script_progression --message="Upgrading NGINX web server configuration..."
 
 # Create a dedicated NGINX config
 ynh_add_nginx_config
-
-#=================================================
-# CREATE DEDICATED USER
-#=================================================
-ynh_script_progression --message="Making sure dedicated system user exists..."
-
-# Create a dedicated user (if not existing)
-ynh_system_user_create --username=$app
-
-# Set right permissions for curl install
-chown -R $app: $final_path
 
 #=================================================
 # PHP-FPM CONFIGURATION
@@ -212,6 +194,7 @@ chmod 644 "/etc/cron.d/$app"
 # UPGRADE DEPENDENCIES
 #=================================================
 ynh_script_progression --message="Upgrading dependencies..."
+
 if [  $database -eq 1 ]; then
 	#=================================================
 	# CHECK VERSION FOR SPECIFIC MYSQL UPDATE
@@ -224,13 +207,6 @@ if [  $database -eq 1 ]; then
 elif [ $database -eq 2 ]; then
 	ynh_install_app_dependencies $pkg_dependencies
 fi
-
-#=================================================
-# SETUP SSOWAT
-#=================================================
-# As Osada is social network and have its own permission there is no need to keep Osada behind SSO
-ynh_script_progression --message="Upgrading SSOwat configuration..."
-ynh_app_setting_set --app=$app --key=unprotected_uris --value="/"
 
 #=================================================
 # RELOAD NGINX
