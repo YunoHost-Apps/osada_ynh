@@ -23,6 +23,8 @@ upload=$(ynh_app_setting_get --app=$app --key=upload)
 last_update=$(grep  update_time: /etc/yunohost/apps/$app/settings.yml |  cut -c 14-)
 database=$(ynh_app_setting_get --app=$app --key=database)
 phpversion=$(ynh_app_setting_get --app=$app --key=phpversion)
+db_name=$(ynh_app_setting_get --app=$app --key=db_name)
+db_user=$db_name
 
 #=================================================
 # BACKUP BEFORE UPGRADE THEN ACTIVE TRAP
