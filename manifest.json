@@ -27,19 +27,11 @@
         "install" : [
             {
                 "name": "domain",
-                "type": "domain",
-                "ask": {
-                    "en": "Choose a domain for your Osada. Osada must run in the root of this domain. It means no other app can be accessed/run from this domain. We advise to use a dedicated subdomain such as osada.domain.tld",
-                    "fr": "Indiquez un domain pour Osada. Osada doit être installé à la racine du domaine. Cela implique qu'aucune autre app ne pourra être installée ou accessible sur ce domain. Nous conseillons un sous-domaine dédié par exemple osada.domain.tld."
-                }
+                "type": "domain"
             },
             {
                 "name": "admin",
-                "type": "user",
-                "ask": {
-                    "en": "Choose the Osada administrator (must be an existing YunoHost user)",
-                    "fr": "Choisissez l'administrateur de Osada (doit être un utilisateur YunoHost existant)"
-                }
+                "type": "user"
             },
             {
                 "name": "database",
