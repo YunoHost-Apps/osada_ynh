@@ -126,7 +126,7 @@ ynh_script_progression --message="Creating smarty3 folder for personal data..."
 
 mkdir -p "${final_path}/store"
 mkdir -p  "${final_path}/cache/smarty3"
-chmod -R 777 $final_path/store $final_path/cache
+chmod -R 775 $final_path/store $final_path/cache
 
 # Copy the template install/htconfig.sample.php to .htconfig.php
 ynh_script_progression --message="Moving .htconfig.php to root of Osada ..."
