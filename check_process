@@ -11,10 +11,14 @@
 		setup_private=0
 		setup_public=1
 		upgrade=1
-		#upgrade=1	from_commit=
+		upgrade=1	from_commit=81e4171acaa44520d0f527e6af445f4f33f2bca0
 		backup_restore=1
 		multi_instance=1
 		change_url=0
 ;;; Options
 Email=
-Notification=
+Notification=none
+;;; Upgrade options
+	; commit=81e4171acaa44520d0f527e6af445f4f33f2bca0
+		name=Merge pull request #9
+		manifest_arg=domain=DOMAIN&path=PATH&admin=USER&language=fr&is_public=1&password=pass&port=666&
