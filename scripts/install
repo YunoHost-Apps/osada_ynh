@@ -176,7 +176,6 @@ elif [ $database -eq 2 ]; then
 	ynh_replace_string --match_string="db_type = 0;" --replace_string="db_type = 1;" --target_file="$final_path/.htconfig.php"
 	ynh_psql_test_if_first_run
 	ynh_psql_setup_db --db_user=$db_user --db_name=$db_name
-	ynh_app_setting_set --app=$app --key=db_name --value=$db_name
 	ynh_psql_connect_as --user="$db_name" --password="$db_pwd" --database="$db_name" < $final_path/install/schema_postgres.sql
 else
 	ynh_die --message="Some problem occured in creating the database, contact maintainer"
