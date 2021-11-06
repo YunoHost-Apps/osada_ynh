@@ -150,6 +150,7 @@ phpversion=$(ynh_app_setting_get --app=$app --key=phpversion)
 
 db_name=$(ynh_sanitize_dbid --db_name=$app)
 db_user=$db_name
+ynh_app_setting_set --app=$app --key=db_name --value=$db_name
 
 #=================================================
 # MODIFY A CONFIG FILE
@@ -167,15 +168,12 @@ chown $app:$app "$final_path/.htconfig.php"
 
 if [  $database -eq 1 ]; then
 	ynh_script_progression --message="Creating a MySQL database..."
-
-	ynh_app_setting_set --app=$app --key=db_name --value=$db_name
 	ynh_mysql_setup_db --db_user=$db_user --db_name=$db_name
 	ynh_mysql_connect_as --user="$db_name" --password="$db_pwd" --database="$db_name" < $final_path/install/schema_mysql.sql
 elif [ $database -eq 2 ]; then
 	# Create postgresql database
 	ynh_script_progression --message="Creating a postgresql database..."
 	ynh_replace_string --match_string="db_type = 0;" --replace_string="db_type = 1;" --target_file="$final_path/.htconfig.php"
-
 	ynh_psql_test_if_first_run
 	ynh_psql_setup_db --db_user=$db_user --db_name=$db_name
 	ynh_app_setting_set --app=$app --key=db_name --value=$db_name
