@@ -153,16 +153,6 @@ db_user=$db_name
 ynh_app_setting_set --app=$app --key=db_name --value=$db_name
 
 #=================================================
-# MODIFY A CONFIG FILE
-#=================================================
-ynh_script_progression --message="Adding a configuration file..." --weight=1
-
-ynh_add_config --template="../conf/htconfig.sample.php" --destination="$final_path/.htconfig.php"
-
-chmod 600 "$final_path/.htconfig.php"
-chown $app:$app "$final_path/.htconfig.php"
-
-#=================================================
 # CREATE A  DATABASE
 #=================================================
 
@@ -180,6 +170,16 @@ elif [ $database -eq 2 ]; then
 else
 	ynh_die --message="Some problem occured in creating the database, contact maintainer"
 fi
+
+#=================================================
+# MODIFY A CONFIG FILE
+#=================================================
+ynh_script_progression --message="Adding a configuration file..." --weight=1
+
+ynh_add_config --template="../conf/htconfig.sample.php" --destination="$final_path/.htconfig.php"
+
+chmod 600 "$final_path/.htconfig.php"
+chown $app:$app "$final_path/.htconfig.php"
 
 #=================================================
 # NGINX CONFIGURATION
