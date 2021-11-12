@@ -23,16 +23,8 @@ upload=$(ynh_app_setting_get --app=$app --key=upload)
 last_update=$(grep  update_time: /etc/yunohost/apps/$app/settings.yml |  cut -c 14-)
 database=$(ynh_app_setting_get --app=$app --key=database)
 phpversion=$(ynh_app_setting_get --app=$app --key=phpversion)
-
-#=================================================
-# ENSURE DOWNWARD COMPATIBILITY
-#=================================================
-
-# If db_name doesn't exist, create it
-if [ -z "$db_name" ]; then
-	db_name=$(ynh_sanitize_dbid --db_name=$app)
-	ynh_app_setting_set --app=$app --key=db_name --value=$db_name
-fi
+db_name=$(ynh_app_setting_get --app=$app --key=db_name)
+db_user=$db_name
 
 #=================================================
 # BACKUP BEFORE UPGRADE THEN ACTIVE TRAP
@@ -55,24 +47,33 @@ ynh_abort_if_errors
 #=================================================
 ynh_print_info "Upgrading source files..."
 
-# Create a temporary directory
-# tmpdir="$(ynh_smart_mktemp 6000)"
-# Backup the config file in the temp dir
-# cp -a "$final_path/.htconfig.php" "$tmpdir/.htconfig.php"
-# cp -a "$final_path/store" "$tmpdir/store"
-# cp -a "$final_path/php.log" "$tmpdir/php.log"
-
-# Remove the app directory securely
-# ynh_secure_remove "$final_path"
-
 # If final_path doesn't exist, create it
 if [ -z "$final_path" ]; then
 	final_path=/var/www/$app
 	ynh_app_setting_set --app=$app --key=final_path --value=$final_path
 fi
 
+# If db_name doesn't exist, create it
+if [ -z "$db_name" ]; then
+	db_name=$(ynh_sanitize_dbid --db_name=$app)
+	ynh_app_setting_set --app=$app --key=db_name --value=$db_name
+fi
+
+if ynh_legacy_permissions_exists
+then
+	ynh_legacy_permissions_delete_all
+
+	ynh_app_setting_delete --app=$app --key=is_public
+fi
+
 #=================================================
-# STANDARD UPGRADE STEPS
+# CREATE DEDICATED USER
+#=================================================
+ynh_script_progression --message="Making sure dedicated system user exists..."
+
+# Create a dedicated user (if not existing)
+ynh_system_user_create --username=$app --home_dir="$final_path"
+
 #=================================================
 # DOWNLOAD, CHECK AND UNPACK SOURCE
 #=================================================
@@ -85,7 +86,7 @@ ynh_setup_source --dest_dir="$final_path"
 # cp -a "$tmpdir/.htconfig.php" "${final_path}"
 # cp -a "$tmpdir/php.log" "${final_path}"
 # ynh_secure_remove "$tmpdir"
-# chmod -R 777 $final_path/store
+# chmod -R 775 $final_path/store
 # mkdir $final_path/addon
 # ynh_setup_source --dest_dir="$final_path/addon" --source_id="app_addons"
 
@@ -123,7 +124,7 @@ if [ `cd $final_path && git rev-parse --is-inside-work-tree` ]; then
 			fi;
 		done
 	popd
-	chmod -R 777 $final_path/store
+	chmod -R 775 $final_path/store
 else
 
     # Create a temporary directory
@@ -145,11 +146,14 @@ else
 	cp -a "$tmpdir/.htconfig.php" "${final_path}"
 	cp -a "$tmpdir/php.log" "${final_path}"
 	ynh_secure_remove --file="$tmpdir"
-	chmod -R 777 $final_path/store
+	chmod -R 775 $final_path/store
 	mkdir $final_path/addon
 	ynh_setup_source --dest_dir="$final_path/addon" --source_id="app_addons"
-
 fi
+
+chmod 750 "$final_path"
+chmod -R o-rwx "$final_path"
+chown -R $app:www-data "$final_path"
 
 #=================================================
 # NGINX CONFIGURATION
@@ -158,17 +162,6 @@ ynh_script_progression --message="Upgrading NGINX web server configuration..."
 
 # Create a dedicated NGINX config
 ynh_add_nginx_config
-
-#=================================================
-# CREATE DEDICATED USER
-#=================================================
-ynh_script_progression --message="Making sure dedicated system user exists..."
-
-# Create a dedicated user (if not existing)
-ynh_system_user_create --username=$app
-
-# Set right permissions for curl install
-chown -R $app: $final_path
 
 #=================================================
 # PHP-FPM CONFIGURATION
@@ -192,28 +185,28 @@ ynh_script_progression --message="Upgrading logrotate configuration..."
 # Use logrotate to manage app-specific logfile(s)
 ynh_use_logrotate --non-append
 
+#=================================================
 # UPGRADE FAIL2BAN
 #=================================================
 ynh_script_progression --message="Re-configure Fail2Ban..."
 
 ynh_add_fail2ban_config --logpath="$final_path/php.log" --failregex="^.*auth\.php.*failed login attempt.*from IP <HOST>.*$" --max_retry="5"
 
-# Set cron job
-ynh_print_info "Setting up cron job..."
-ynh_replace_string  --match_string="YNH_WWW_PATH" --replace_string="$final_path" --target_file="../conf/poller-cron"
-ynh_replace_string --match_string="__USER__" --replace_string="$app"  --target_file="../conf/poller-cron"
-ynh_replace_string --match_string="__PHP_VERSION__" --replace_string="$phpversion"  --target_file="../conf/poller-cron"
-cp -f ../conf/poller-cron /etc/cron.d/$app
+#=================================================
+# UPGRADE CRON JOB
+#=================================================
+
+# Set up cron job
+ynh_add_config --template="../conf/poller-cron" --destination="/etc/cron.d/$app"
+chown root: "/etc/cron.d/$app"
+chmod 644 "/etc/cron.d/$app"
 
 #=================================================
 # UPGRADE DEPENDENCIES
 #=================================================
 ynh_script_progression --message="Upgrading dependencies..."
-if [  $database -eq 1 ]; then
-	#=================================================
-	# CHECK VERSION FOR SPECIFIC MYSQL UPDATE
-	#=================================================
 
+if [  $database -eq 1 ]; then
 	# Check version and if this version was a fresh install push mysql query
 	db_name=$(ynh_app_setting_get --app=$app --key=db_name)
 	db_pwd=$(ynh_app_setting_get --app=$app --key=mysqlpwd)
@@ -221,13 +214,6 @@ if [  $database -eq 1 ]; then
 elif [ $database -eq 2 ]; then
 	ynh_install_app_dependencies $pkg_dependencies
 fi
-
-#=================================================
-# SETUP SSOWAT
-#=================================================
-# As Osada is social network and have its own permission there is no need to keep Osada behind SSO
-ynh_script_progression --message="Upgrading SSOwat configuration..."
-ynh_app_setting_set --app=$app --key=unprotected_uris --value="/"
 
 #=================================================
 # RELOAD NGINX
