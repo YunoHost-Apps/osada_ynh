@@ -41,7 +41,9 @@ ynh_clean_setup () {
 ynh_abort_if_errors
 
 #=================================================
-# ENSURE DOWNWARD COMPATIBILITY
+# STANDARD UPGRADE STEPS
+#=================================================
+# REMOVE APP MAIN DIR
 #=================================================
 ynh_print_info "Upgrading source files..."
 
@@ -55,6 +57,13 @@ fi
 if [ -z "$db_name" ]; then
 	db_name=$(ynh_sanitize_dbid --db_name=$app)
 	ynh_app_setting_set --app=$app --key=db_name --value=$db_name
+fi
+
+if ynh_legacy_permissions_exists
+then
+	ynh_legacy_permissions_delete_all
+
+	ynh_app_setting_delete --app=$app --key=is_public
 fi
 
 #=================================================
@@ -198,10 +207,6 @@ chmod 644 "/etc/cron.d/$app"
 ynh_script_progression --message="Upgrading dependencies..."
 
 if [  $database -eq 1 ]; then
-	#=================================================
-	# CHECK VERSION FOR SPECIFIC MYSQL UPDATE
-	#=================================================
-
 	# Check version and if this version was a fresh install push mysql query
 	db_name=$(ynh_app_setting_get --app=$app --key=db_name)
 	db_pwd=$(ynh_app_setting_get --app=$app --key=mysqlpwd)
