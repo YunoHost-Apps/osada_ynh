@@ -6,7 +6,7 @@
         "en": "Decentralized publication platform and social network",
         "fr": "Plateforme de publication décentralisée et un réseau social"
     },
-    "version": "21.05.21~ynh1",
+    "version": "21.05.21~ynh2",
     "url": "http://zotlabs.com/osada/",
     "upstream": {
         "license": "MIT",
