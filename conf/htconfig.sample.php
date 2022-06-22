@@ -17,7 +17,7 @@ $db_port = 0;                    // leave 0 for default or set your port
 $db_user = '__DB_USER__';
 $db_pass = '__DB_PWD__';
 $db_data = '__DB_NAME__';
-$db_type = 0; // use 1 for postgres, 0 for mysql
+$db_type = __DB_TYPE__; // use 1 for postgres, 0 for mysql
 
 /*
  * Notice: Many of the following settings will be available in the admin panel 
@@ -40,7 +40,7 @@ App::$config['system']['timezone'] = 'America/Los_Angeles';
 // What is your site name? DO NOT ADD A TRAILING SLASH!
 
 App::$config['system']['baseurl'] = 'https://__DOMAIN__';
-App::$config['system']['sitename'] = "Zap";
+App::$config['system']['sitename'] = "YunoHost Osada";
 App::$config['system']['location_hash'] = '__RANDOM_STRING__';
 
 

@@ -1,12 +1,12 @@
 {
-    "name": "Osada",  
+    "name": "Osada",
     "id": "osada",
     "packaging_format": 1,
     "description": {
         "en": "Decentralized publication platform and social network",
         "fr": "Plateforme de publication décentralisée et un réseau social"
     },
-    "version": "21.05.21~ynh2",
+    "version": "22.06.22~ynh1",
     "url": "http://zotlabs.com/osada/",
     "upstream": {
         "license": "MIT",
@@ -18,18 +18,18 @@
         "name": "Anmol Sharma",
         "email": ""
     },
+    "requirements": {
+        "yunohost": ">= 4.3.0"
+    },
+    "multi_instance": true,
     "services": [
         "nginx",
         "php7.3-fpm",
         "mysql",
         "postgresql"
     ],
-    "requirements": {
-        "yunohost": ">= 4.2.0"
-    },
-    "multi_instance": true,
     "arguments": {
-        "install" : [
+        "install": [
             {
                 "name": "domain",
                 "type": "domain"
@@ -42,11 +42,11 @@
                 "name": "database",
                 "type": "string",
                 "ask": {
-                    "en": "Choose the database to be used for the Osada [mysql:1,postgresql:2]",
-                    "fr": "Choisissez la database de Osada [mysql:1,postgresql:2]"
+                    "en": "Choose the database to be used for the Osada]",
+                    "fr": "Choisissez la database de Osada"
                 },
-                "choices": ["1", "2"],
-                "default": "1"
+                "choices": ["mysql", "postgresql"],
+                "default": "mysql"
             }
         ]
     }
