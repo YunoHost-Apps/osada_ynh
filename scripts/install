@@ -65,7 +65,7 @@ ynh_script_progression --message="Installing dependencies..."
 if [ $database = "postgresql" ]; then
 	pkg_dependencies="$pkg_dependencies $pg_pkg_dependencies"
 fi
-ynh_install_app_dependencies $pkg_dependencies
+ynh_exec_warn_less ynh_install_app_dependencies $pkg_dependencies
 
 #=================================================
 # CREATE DEDICATED USER
