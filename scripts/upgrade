@@ -65,10 +65,10 @@ if ynh_legacy_permissions_exists; then
 	ynh_app_setting_delete --app=$app --key=is_public
 fi
 
-if [ $database -eq 1 ]; then
+if [ $database -eq 1 ] 2>/dev/null; then
 	database="mysql"
 	ynh_app_setting_set --app=$app --key=database --value=$database
-elif [ $database -eq 2 ]; then
+elif [ $database -eq 2 ] 2>/dev/null; then
 	database="postgresql"
 	ynh_app_setting_set --app=$app --key=database --value=$database
 else
