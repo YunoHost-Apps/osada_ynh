@@ -5,7 +5,7 @@ It shall NOT be edited by hand.
 
 # Osada for YunoHost
 
-[![Integration level](https://dash.yunohost.org/integration/osada.svg)](https://dash.yunohost.org/appci/app/osada) ![](https://ci-apps.yunohost.org/ci/badges/osada.status.svg) ![](https://ci-apps.yunohost.org/ci/badges/osada.maintain.svg)  
+[![Integration level](https://dash.yunohost.org/integration/osada.svg)](https://dash.yunohost.org/appci/app/osada) ![Working status](https://ci-apps.yunohost.org/ci/badges/osada.status.svg) ![Maintenance status](https://ci-apps.yunohost.org/ci/badges/osada.maintain.svg)  
 [![Install Osada with YunoHost](https://install-app.yunohost.org/install-with-yunohost.svg)](https://install-app.yunohost.org/?app=osada)
 
 *[Lire ce readme en français.](./README_fr.md)*
@@ -18,13 +18,11 @@ If you don't have YunoHost, please consult [the guide](https://yunohost.org/#/in
 ## Overview
 [Osada](http://zotlabs.com/osada/) uses **Zot6 protocol** which is next version of **zot5 protocol**. Osada has native support for the **ActivityPub protocol** (W3C standard) as well as the more advanced features. It can inter-operate with other social networking applications and projects in either of these spaces, including **Mastodon, Pleroma, Pixelfed, PeerTube, Funkwhale, Zap, Friendica, Hubzilla,** and many more.
 
-**Shipped version:** 21.05.21~ynh2
-
-
+**Shipped version:** 22.06.22~ynh1
 
 ## Screenshots
 
-![](./doc/screenshots/comment_on_posts.gif)
+![Screenshot of Osada](./doc/screenshots/comment_on_posts.gif)
 
 ## Disclaimers / important information
 
@@ -49,20 +47,21 @@ If you don't have YunoHost, please consult [the guide](https://yunohost.org/#/in
 
 ## Documentation and resources
 
-* Official app website: http://zotlabs.com/osada/
-* Upstream app code repository: https://codeberg.org/zot/osada
-* YunoHost documentation for this app: https://yunohost.org/app_osada
-* Report a bug: https://github.com/YunoHost-Apps/osada_ynh/issues
+* Official app website: <http://zotlabs.com/osada/>
+* Upstream app code repository: <https://codeberg.org/zot/osada>
+* YunoHost documentation for this app: <https://yunohost.org/app_osada>
+* Report a bug: <https://github.com/YunoHost-Apps/osada_ynh/issues>
 
 ## Developer info
 
 Please send your pull request to the [testing branch](https://github.com/YunoHost-Apps/osada_ynh/tree/testing).
 
 To try the testing branch, please proceed like that.
-```
+
+``` bash
 sudo yunohost app install https://github.com/YunoHost-Apps/osada_ynh/tree/testing --debug
 or
 sudo yunohost app upgrade osada -u https://github.com/YunoHost-Apps/osada_ynh/tree/testing --debug
 ```
 
-**More info regarding app packaging:** https://yunohost.org/packaging_apps
+**More info regarding app packaging:** <https://yunohost.org/packaging_apps>
