@@ -19,11 +19,14 @@ app=$YNH_APP_INSTANCE_NAME
 domain=$(ynh_app_setting_get --app=$app --key=domain)
 path_url=$(ynh_app_setting_get --app=$app --key=path)
 final_path=$(ynh_app_setting_get --app=$app --key=final_path)
+admin=$(ynh_app_setting_get --app=$app --key=admin)
 db_name=$(ynh_app_setting_get --app=$app --key=db_name)
 db_user=$db_name
 phpversion=$(ynh_app_setting_get --app=$app --key=phpversion)
 database=$(ynh_app_setting_get --app=$app --key=database)
 upload=$(ynh_app_setting_get --app=$app --key=upload)
+
+email=$(ynh_user_get_info --username=$admin --key=mail)
 
 #=================================================
 # CHECK VERSION
