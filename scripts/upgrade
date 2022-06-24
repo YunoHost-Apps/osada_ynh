@@ -25,6 +25,7 @@ db_user=$db_name
 phpversion=$(ynh_app_setting_get --app=$app --key=phpversion)
 database=$(ynh_app_setting_get --app=$app --key=database)
 upload=$(ynh_app_setting_get --app=$app --key=upload)
+random_string=$(ynh_app_setting_get --app=$app --key=random_string)
 
 email=$(ynh_user_get_info --username=$admin --key=mail)
 
