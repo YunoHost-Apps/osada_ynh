@@ -26,6 +26,13 @@ database=$(ynh_app_setting_get --app=$app --key=database)
 upload=$(ynh_app_setting_get --app=$app --key=upload)
 
 #=================================================
+# CHECK VERSION
+#=================================================
+ynh_script_progression --message="Checking version..."
+
+upgrade_type=$(ynh_check_app_version_changed)
+
+#=================================================
 # BACKUP BEFORE UPGRADE THEN ACTIVE TRAP
 #=================================================
 ynh_script_progression --message="Backing up the app before upgrading (may take a while)..."
@@ -42,9 +49,9 @@ ynh_abort_if_errors
 #=================================================
 # STANDARD UPGRADE STEPS
 #=================================================
-# REMOVE APP MAIN DIR
+# ENSURE DOWNWARD COMPATIBILITY
 #=================================================
-ynh_print_info "Upgrading source files..."
+ynh_script_progression --message="Ensuring downward compatibility..."
 
 # If final_path doesn't exist, create it
 if [ -z "$final_path" ]; then
@@ -65,14 +72,17 @@ if ynh_legacy_permissions_exists; then
 	ynh_app_setting_delete --app=$app --key=is_public
 fi
 
-if [ $database -eq 1 ] 2>/dev/null; then
-	database="mysql"
-	ynh_app_setting_set --app=$app --key=database --value=$database
-elif [ $database -eq 2 ] 2>/dev/null; then
-	database="postgresql"
-	ynh_app_setting_set --app=$app --key=database --value=$database
-else
-	ynh_die --message="Some problem occured in creating the database, contact maintainer"
+# switch $database to "mysql" or "postgresql"
+if [[ $database =~ '^[0-9]+$' ]]; then
+	if [ $database -eq 1 ] 2>/dev/null; then
+		database="mysql"
+		ynh_app_setting_set --app=$app --key=database --value=$database
+	elif [ $database -eq 2 ] 2>/dev/null; then
+		database="postgresql"
+		ynh_app_setting_set --app=$app --key=database --value=$database
+	else
+		ynh_die --message="Some problem occured in creating the database, contact maintainer"
+	fi
 fi
 
 #=================================================
