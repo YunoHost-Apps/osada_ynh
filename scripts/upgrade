@@ -18,8 +18,8 @@ app=$YNH_APP_INSTANCE_NAME
 
 domain=$(ynh_app_setting_get --app=$app --key=domain)
 path_url=$(ynh_app_setting_get --app=$app --key=path)
-final_path=$(ynh_app_setting_get --app=$app --key=final_path)
 admin=$(ynh_app_setting_get --app=$app --key=admin)
+final_path=$(ynh_app_setting_get --app=$app --key=final_path)
 db_name=$(ynh_app_setting_get --app=$app --key=db_name)
 db_user=$db_name
 phpversion=$(ynh_app_setting_get --app=$app --key=phpversion)
@@ -77,14 +77,12 @@ if ynh_legacy_permissions_exists; then
 fi
 
 # Switch $database to "mysql" or "postgresql"
-if [ $database = "1" ] 2>/dev/null; then
+if [[ $database == "1" ]] 2>/dev/null; then
 	database="mysql"
 	ynh_app_setting_set --app=$app --key=database --value=$database
-elif [ $database = "2" ] 2>/dev/null; then
+elif [[ $database == "2" ]] 2>/dev/null; then
 	database="postgresql"
 	ynh_app_setting_set --app=$app --key=database --value=$database
-else
-	ynh_die --message="Some problem occured in creating the database, contact maintainer"
 fi
 
 #=================================================
@@ -154,8 +152,6 @@ if [ $database = "mysql" ]; then
 elif [ $database = "postgresql" ]; then
 	db_type=1
 	db_pwd=$(ynh_app_setting_get --app=$app --key=psqlpwd)
-else
-	ynh_die --message="Some problem occured in creating the database, contact maintainer"
 fi
 
 ynh_add_config --template="../conf/htconfig.sample.php" --destination="$final_path/.htconfig.php"

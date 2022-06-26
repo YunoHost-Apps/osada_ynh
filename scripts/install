@@ -93,8 +93,6 @@ elif [ $database = "postgresql" ]; then
 	ynh_psql_test_if_first_run
 	ynh_psql_setup_db --db_user=$db_user --db_name=$db_name
 	db_type=1
-else
-	ynh_die --message="Some problem occured in creating the database, contact maintainer"
 fi
 
 #=================================================
@@ -143,8 +141,6 @@ if [ $database = "mysql" ]; then
 	ynh_mysql_connect_as --user="$db_name" --password="$db_pwd" --database="$db_name" < $final_path/install/schema_mysql.sql
 elif [ $database = "postgresql" ]; then
 	ynh_psql_connect_as --user="$db_name" --password="$db_pwd" --database="$db_name" < $final_path/install/schema_postgres.sql
-else
-	ynh_die --message="Some problem occured in creating the database, contact maintainer"
 fi
 
 #=================================================
