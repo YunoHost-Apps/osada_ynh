@@ -76,17 +76,15 @@ if ynh_legacy_permissions_exists; then
 	ynh_app_setting_delete --app=$app --key=is_public
 fi
 
-# switch $database to "mysql" or "postgresql"
-if [[ $database =~ '^[0-9]+$' ]]; then
-	if [ $database -eq 1 ] 2>/dev/null; then
-		database="mysql"
-		ynh_app_setting_set --app=$app --key=database --value=$database
-	elif [ $database -eq 2 ] 2>/dev/null; then
-		database="postgresql"
-		ynh_app_setting_set --app=$app --key=database --value=$database
-	else
-		ynh_die --message="Some problem occured in creating the database, contact maintainer"
-	fi
+# Switch $database to "mysql" or "postgresql"
+if [ $database = "1" ] 2>/dev/null; then
+	database="mysql"
+	ynh_app_setting_set --app=$app --key=database --value=$database
+elif [ $database = "2" ] 2>/dev/null; then
+	database="postgresql"
+	ynh_app_setting_set --app=$app --key=database --value=$database
+else
+	ynh_die --message="Some problem occured in creating the database, contact maintainer"
 fi
 
 #=================================================
