@@ -11,7 +11,7 @@
     "upstream": {
         "license": "MIT",
         "website": "http://zotlabs.com/osada/",
-        "code": "https://codeberg.org/zot/osada"
+        "code": "https://codeberg.org/zot-archive/osada"
     },
     "license": "MIT",
     "maintainer": {
