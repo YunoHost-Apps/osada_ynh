@@ -5,7 +5,8 @@ It shall NOT be edited by hand.
 
 # Osada for YunoHost
 
-[![Integration level](https://dash.yunohost.org/integration/osada.svg)](https://dash.yunohost.org/appci/app/osada) ![Working status](https://ci-apps.yunohost.org/ci/badges/osada.status.svg) ![Maintenance status](https://ci-apps.yunohost.org/ci/badges/osada.maintain.svg)  
+[![Integration level](https://dash.yunohost.org/integration/osada.svg)](https://dash.yunohost.org/appci/app/osada) ![Working status](https://ci-apps.yunohost.org/ci/badges/osada.status.svg) ![Maintenance status](https://ci-apps.yunohost.org/ci/badges/osada.maintain.svg)
+
 [![Install Osada with YunoHost](https://install-app.yunohost.org/install-with-yunohost.svg)](https://install-app.yunohost.org/?app=osada)
 
 *[Lire ce readme en français.](./README_fr.md)*
@@ -48,7 +49,7 @@ If you don't have YunoHost, please consult [the guide](https://yunohost.org/#/in
 ## Documentation and resources
 
 * Official app website: <http://zotlabs.com/osada/>
-* Upstream app code repository: <https://codeberg.org/zot/osada>
+* Upstream app code repository: <https://codeberg.org/zot-archive/osada>
 * YunoHost documentation for this app: <https://yunohost.org/app_osada>
 * Report a bug: <https://github.com/YunoHost-Apps/osada_ynh/issues>
 

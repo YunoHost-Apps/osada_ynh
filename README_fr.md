@@ -5,24 +5,25 @@ It shall NOT be edited by hand.
 
 # Osada pour YunoHost
 
-[![Niveau d'intégration](https://dash.yunohost.org/integration/osada.svg)](https://dash.yunohost.org/appci/app/osada) ![Statut du fonctionnement](https://ci-apps.yunohost.org/ci/badges/osada.status.svg) ![Statut de maintenance](https://ci-apps.yunohost.org/ci/badges/osada.maintain.svg)  
+[![Niveau d’intégration](https://dash.yunohost.org/integration/osada.svg)](https://dash.yunohost.org/appci/app/osada) ![Statut du fonctionnement](https://ci-apps.yunohost.org/ci/badges/osada.status.svg) ![Statut de maintenance](https://ci-apps.yunohost.org/ci/badges/osada.maintain.svg)
+
 [![Installer Osada avec YunoHost](https://install-app.yunohost.org/install-with-yunohost.svg)](https://install-app.yunohost.org/?app=osada)
 
 *[Read this readme in english.](./README.md)*
 
-> *Ce package vous permet d'installer Osada rapidement et simplement sur un serveur YunoHost.
-Si vous n'avez pas YunoHost, regardez [ici](https://yunohost.org/#/install) pour savoir comment l'installer et en profiter.*
+> *Ce package vous permet d’installer Osada rapidement et simplement sur un serveur YunoHost.
+Si vous n’avez pas YunoHost, regardez [ici](https://yunohost.org/#/install) pour savoir comment l’installer et en profiter.*
 
-## Vue d'ensemble
+## Vue d’ensemble
 
 ## Overview
 [Osada](http://zotlabs.com/osada/) uses **Zot6 protocol** which is next version of **zot5 protocol**. Osada has native support for the **ActivityPub protocol** (W3C standard) as well as the more advanced features. It can inter-operate with other social networking applications and projects in either of these spaces, including **Mastodon, Pleroma, Pixelfed, PeerTube, Funkwhale, Zap, Friendica, Hubzilla,** and many more.
 
 **Version incluse :** 22.06.22~ynh1
 
-## Captures d'écran
+## Captures d’écran
 
-![Capture d'écran de Osada](./doc/screenshots/comment_on_posts.gif)
+![Capture d’écran de Osada](./doc/screenshots/comment_on_posts.gif)
 
 ## Avertissements / informations importantes
 
@@ -47,8 +48,8 @@ Si vous n'avez pas YunoHost, regardez [ici](https://yunohost.org/#/install) pour
 
 ## Documentations et ressources
 
-* Site officiel de l'app : <http://zotlabs.com/osada/>
-* Dépôt de code officiel de l'app : <https://codeberg.org/zot/osada>
+* Site officiel de l’app : <http://zotlabs.com/osada/>
+* Dépôt de code officiel de l’app : <https://codeberg.org/zot-archive/osada>
 * Documentation YunoHost pour cette app : <https://yunohost.org/app_osada>
 * Signaler un bug : <https://github.com/YunoHost-Apps/osada_ynh/issues>
 
@@ -64,4 +65,4 @@ ou
 sudo yunohost app upgrade osada -u https://github.com/YunoHost-Apps/osada_ynh/tree/testing --debug
 ```
 
-**Plus d'infos sur le packaging d'applications :** <https://yunohost.org/packaging_apps>
+**Plus d’infos sur le packaging d’applications :** <https://yunohost.org/packaging_apps>
