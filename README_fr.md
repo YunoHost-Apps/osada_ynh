@@ -46,11 +46,15 @@ Si vous n’avez pas YunoHost, regardez [ici](https://yunohost.org/#/install) po
 
 - **Failed Database after Upgrade:** Some times databse upgrade fails after version upgrade. You can go to hub eg. `https://osada.example.com/admin/dbsync/` and check the numbers of failled update. These updates will have to be ran manually by **phpMyAdmin**.
 
+## :red_circle: Fonctions indésirables
+
+- **Upstream not maintained**: This software is not maintained anymore. Expect it to break down over time, be exposed to unfixed security breaches, etc.
+
 ## Documentations et ressources
 
 * Site officiel de l’app : <http://zotlabs.com/osada/>
 * Dépôt de code officiel de l’app : <https://codeberg.org/zot-archive/osada>
-* Documentation YunoHost pour cette app : <https://yunohost.org/app_osada>
+* YunoHost Store: <https://apps.yunohost.org/app/osada>
 * Signaler un bug : <https://github.com/YunoHost-Apps/osada_ynh/issues>
 
 ## Informations pour les développeurs
