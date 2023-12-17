@@ -6,7 +6,7 @@
         "en": "Decentralized publication platform and social network",
         "fr": "Plateforme de publication décentralisée et un réseau social"
     },
-    "version": "22.06.22~ynh1",
+    "version": "23.12.17~ynh1",
     "url": "http://zotlabs.com/osada/",
     "upstream": {
         "license": "MIT",
@@ -19,7 +19,7 @@
         "email": ""
     },
     "requirements": {
-        "yunohost": ">= 4.3.0"
+        "yunohost": ">= 11.2"
     },
     "multi_instance": true,
     "services": [
@@ -40,7 +40,7 @@
             },
             {
                 "name": "database",
-                "type": "string",
+                "type": "select",
                 "ask": {
                     "en": "Choose the database to be used for the Osada]",
                     "fr": "Choisissez la database de Osada"
