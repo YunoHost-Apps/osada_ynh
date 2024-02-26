@@ -1,2 +1,0 @@
-# Run poller periodically to update Osada
-*/10 * * * * __APP__ /usr/bin/php__PHPVERSION__ __FINALPATH__/Zotlabs/Daemon/Master.php Cron > /dev/null 2>&1
