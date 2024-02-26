@@ -68,14 +68,6 @@ chmod -R 775 $install_dir/store $install_dir/cache
 #=================================================
 ynh_script_progression --message="Updating a configuration file..." --weight=1
 
-if [ $database = "mysql" ]; then
-	db_type=0
-#REMOVEME? 	db_pwd=$(ynh_app_setting_get --app=$app --key=mysqlpwd)
-elif [ $database = "postgresql" ]; then
-	db_type=1
-#REMOVEME? 	db_pwd=$(ynh_app_setting_get --app=$app --key=psqlpwd)
-fi
-
 ynh_add_config --template="htconfig.sample.php" --destination="$install_dir/.htconfig.php"
 
 chmod 600 "$install_dir/.htconfig.php"
