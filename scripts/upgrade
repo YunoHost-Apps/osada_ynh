@@ -30,81 +30,29 @@ source /usr/share/yunohost/helpers
 email=$(ynh_user_get_info --username=$admin --key=mail)
 
 #=================================================
-# CHECK VERSION
-#=================================================
-ynh_script_progression --message="Checking version..."
-
-upgrade_type=$(ynh_check_app_version_changed)
-
-#=================================================
-# BACKUP BEFORE UPGRADE THEN ACTIVE TRAP
-#=================================================
-#REMOVEME? ynh_script_progression --message="Backing up the app before upgrading (may take a while)..."
-
-# Backup the current version of the app
-#REMOVEME? ynh_backup_before_upgrade
-#REMOVEME? ynh_clean_setup () {
-	# Restore it if the upgrade fails
-#REMOVEME? 	ynh_restore_upgradebackup
-}
-# Exit if an error occurs during the execution of the script
-#REMOVEME? ynh_abort_if_errors
-
-#=================================================
 # STANDARD UPGRADE STEPS
 #=================================================
 # ENSURE DOWNWARD COMPATIBILITY
 #=================================================
 ynh_script_progression --message="Ensuring downward compatibility..."
 
-# If install_dir doesn't exist, create it
-if [ -z "$install_dir" ]; then
-#REMOVEME? 	install_dir=/var/www/$app
-#REMOVEME? 	ynh_app_setting_set --app=$app --key=install_dir --value=$install_dir
-fi
-
-# If db_name doesn't exist, create it
-if [ -z "$db_name" ]; then
-	db_name=$(ynh_sanitize_dbid --db_name=$app)
-#REMOVEME? 	ynh_app_setting_set --app=$app --key=db_name --value=$db_name
-fi
-
-# Cleaning legacy permissions
-#REMOVEME? if ynh_legacy_permissions_exists; then
-#REMOVEME? 	ynh_legacy_permissions_delete_all
-
-	ynh_app_setting_delete --app=$app --key=is_public
-fi
-
-# Switch $database to "mysql" or "postgresql"
-if [[ $database == "1" ]] 2>/dev/null; then
-	database="mysql"
-	ynh_app_setting_set --app=$app --key=database --value=$database
-elif [[ $database == "2" ]] 2>/dev/null; then
-	database="postgresql"
-	ynh_app_setting_set --app=$app --key=database --value=$database
-fi
-
-#=================================================
-# CREATE DEDICATED USER
-#=================================================
-#REMOVEME? ynh_script_progression --message="Making sure dedicated system user exists..."
-
-# Create a dedicated user (if not existing)
-#REMOVEME? ynh_system_user_create --username=$app --home_dir="$install_dir"
+# # Switch $database to "mysql" or "postgresql"
+# if [[ $database == "1" ]] 2>/dev/null; then
+# 	database="mysql"
+# 	ynh_app_setting_set --app=$app --key=database --value=$database
+# elif [[ $database == "2" ]] 2>/dev/null; then
+# 	database="postgresql"
+# 	ynh_app_setting_set --app=$app --key=database --value=$database
+# fi
 
 #=================================================
 # DOWNLOAD, CHECK AND UNPACK SOURCE
 #=================================================
+ynh_script_progression --message="Upgrading source files..."
 
-if [ "$upgrade_type" == "UPGRADE_APP" ]
-then
-	ynh_script_progression --message="Upgrading source files..."
-
-	# Download, check integrity, uncompress and patch the source from app.src
-	ynh_setup_source --dest_dir="$install_dir" --keep="store/ .htconfig.php php.log"
-	ynh_setup_source --dest_dir="$install_dir/addon" --source_id="app_addons"
-fi
+# Download, check integrity, uncompress and patch the source from app.src
+ynh_setup_source --dest_dir="$install_dir" --full_replace=1 --keep="store/ .htconfig.php php.log"
+ynh_setup_source --dest_dir="$install_dir/addon" --source_id="app_addons"
 
 mkdir -p "$install_dir/store"
 mkdir -p  "$install_dir/cache/smarty3"
@@ -112,32 +60,6 @@ chmod 750 "$install_dir"
 chmod -R o-rwx "$install_dir"
 chown -R $app:www-data "$install_dir"
 chmod -R 775 $install_dir/store $install_dir/cache
-
-#=================================================
-# INSTALL DEPENDENCIES
-#=================================================
-#REMOVEME? ynh_script_progression --message="Installing dependencies..."
-
-if [ $database = "postgresql" ]; then
-#REMOVEME? 	pkg_dependencies="$pkg_dependencies $pg_pkg_dependencies"
-fi
-#REMOVEME? ynh_install_app_dependencies $pkg_dependencies
-
-#=================================================
-# PHP-FPM CONFIGURATION
-#=================================================
-ynh_script_progression --message="Upgrading PHP-FPM configuration..."
-
-# Create a dedicated PHP-FPM config
-ynh_add_fpm_config
-
-#=================================================
-# NGINX CONFIGURATION
-#=================================================
-ynh_script_progression --message="Upgrading NGINX web server configuration..."
-
-# Create a dedicated NGINX config
-ynh_add_nginx_config
 
 #=================================================
 # SPECIFIC UPGRADE
@@ -154,45 +76,32 @@ elif [ $database = "postgresql" ]; then
 #REMOVEME? 	db_pwd=$(ynh_app_setting_get --app=$app --key=psqlpwd)
 fi
 
-ynh_add_config --template="../conf/htconfig.sample.php" --destination="$install_dir/.htconfig.php"
+ynh_add_config --template="htconfig.sample.php" --destination="$install_dir/.htconfig.php"
 
 chmod 600 "$install_dir/.htconfig.php"
 chown $app:$app "$install_dir/.htconfig.php"
 
 #=================================================
-# UPGRADE CRON JOB
+# REAPPLY SYSTEM CONFIGURATIONS
 #=================================================
-ynh_script_progression --message="Upgrading cron job..."
+ynh_script_progression --message="Upgrading system configurations related to $app..." --weight=1
 
-# Set up cron job
-ynh_add_config --template="../conf/poller-cron" --destination="/etc/cron.d/$app"
-chown root: "/etc/cron.d/$app"
-chmod 644 "/etc/cron.d/$app"
+# Create a dedicated PHP-FPM config
+ynh_add_fpm_config
 
-#=================================================
-# GENERIC FINALIZATION
-#=================================================
-# SETUP LOGROTATE
-#=================================================
-ynh_script_progression --message="Upgrading logrotate configuration..."
+# Create a dedicated NGINX config
+ynh_add_nginx_config
 
 # Use logrotate to manage app-specific logfile(s)
 ynh_use_logrotate --non-append
 
-#=================================================
-# UPGRADE FAIL2BAN
-#=================================================
-ynh_script_progression --message="Reconfiguring Fail2Ban..."
-
 # Create a dedicated Fail2Ban config
 ynh_add_fail2ban_config --logpath="$install_dir/php.log" --failregex="^.*auth\.php.*failed login attempt.*from IP <HOST>.*$" --max_retry="5"
 
-#=================================================
-# RELOAD NGINX
-#=================================================
-#REMOVEME? ynh_script_progression --message="Reloading NGINX web server..."
-
-#REMOVEME? ynh_systemd_action --service_name=nginx --action=reload
+# Set up cron job
+ynh_add_config --template="cron.conf" --destination="/etc/cron.d/$app"
+chown root: "/etc/cron.d/$app"
+chmod 644 "/etc/cron.d/$app"
 
 #=================================================
 # END OF SCRIPT
