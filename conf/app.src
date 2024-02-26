@@ -1,5 +1,5 @@
-SOURCE_URL=https://codeberg.org/zot-archive/osada/archive/54a7f397b4fe6a3b3731a2e37c180d9f2a789756.tar.gz
-SOURCE_SUM=927e13e46c32a414fd9beec1a8a1f372778b611f8382add49481bb4664db9fad
+SOURCE_URL=https://codeberg.org/zot-archive/osada/archive/dc8537520e0753a98bd2e2eeb1f0a16b50b954c3.tar.gz
+SOURCE_SUM=cfed73d7d4648f4fe4e567d533d3d44dce3d36e2423c7ec32e9878f743ce2144
 SOURCE_SUM_PRG=sha256sum
 SOURCE_FORMAT=tar.gz
 SOURCE_IN_SUBDIR=true
