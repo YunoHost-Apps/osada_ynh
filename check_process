@@ -11,10 +11,6 @@
 		setup_private=0
 		setup_public=1
 		upgrade=1
-		# 21.05.21~ynh1
-		upgrade=1	from_commit=81e4171acaa44520d0f527e6af445f4f33f2bca0
-		# 21.05.21~ynh2
-		upgrade=1	from_commit=c49f7f56b47a6a00da257ac7e4fd066dba51dcbf
 		backup_restore=1
 		multi_instance=1
 		port_already_use=0
