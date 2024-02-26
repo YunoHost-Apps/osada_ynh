@@ -36,16 +36,6 @@ ynh_remove_logrotate
 # REMOVE THE DATABASE
 #=================================================
 
-if [ $database = "mysql" ]; then
-	# Removing MySQL database
-#REMOVEME? 	ynh_script_progression --message="Removing  MySQL database..."
-#REMOVEME? 	ynh_mysql_remove_db --db_user=$db_user --db_name=$db_name
-elif [ $database = "postgresql" ]; then
-	# Removing PostgreSQL database
-	ynh_script_progression --message="Removing  postgresql database..."
-#REMOVEME? 	ynh_psql_remove_db --db_user=$db_user --db_name=$db_name
-fi
-
 #=================================================
 # REMOVE APP MAIN DIR
 #=================================================
