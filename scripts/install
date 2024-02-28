@@ -51,7 +51,7 @@ ynh_psql_connect_as --user="$db_name" --password="$db_pwd" --database="$db_name"
 #=================================================
 ynh_script_progression --message="Adding a configuration file..." --weight=1
 
-ynh_add_config --template="../conf/htconfig.sample.php" --destination="$install_dir/.htconfig.php"
+ynh_add_config --template="htconfig.sample.php" --destination="$install_dir/.htconfig.php"
 
 chmod 600 "$install_dir/.htconfig.php"
 chown $app:$app "$install_dir/.htconfig.php"
