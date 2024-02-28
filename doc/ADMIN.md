@@ -1,9 +1,3 @@
-## This app claims following features:
-- [X] LDAP integration
-- [X] Multi-instance
-- [X] Adeed php.log in the root folder for debugging PHP, with logrotate applied on it (can be accesssed by **admin->logs** and entering the **php.log**).
-- [X] Fail2Ban
-- [X] Option to choose between **Mysql** and **PostgreSQL** for the Osada
 
 ## Ldap Admin user rights, logs and failed database updates
 

@@ -1,7 +1,0 @@
-SOURCE_URL=https://codeberg.org/zot-archive/osada/archive/dc8537520e0753a98bd2e2eeb1f0a16b50b954c3.tar.gz
-SOURCE_SUM=cfed73d7d4648f4fe4e567d533d3d44dce3d36e2423c7ec32e9878f743ce2144
-SOURCE_SUM_PRG=sha256sum
-SOURCE_FORMAT=tar.gz
-SOURCE_IN_SUBDIR=true
-SOURCE_FILENAME=
-SOURCE_EXTRACT=true

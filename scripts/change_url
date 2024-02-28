@@ -1,0 +1,35 @@
+#!/bin/bash
+
+## this script is only run if actual change to domain/path is detected, if you're here either $domain or $path changed
+## new location is available via $domain and $path (or $new_domain and $new_path variables if you want to be explicit)
+## old values are available via, you guessed it, $old_domain and $old_path
+
+#=================================================
+# IMPORT GENERIC HELPERS
+#=================================================
+
+source _common.sh
+source /usr/share/yunohost/helpers
+
+#=================================================
+# MODIFY URL IN NGINX CONF
+#=================================================
+ynh_script_progression --message="Updating NGINX web server configuration..." --weight=1
+
+ynh_change_url_nginx_config
+
+#=================================================
+# SPECIFIC MODIFICATIONS
+#=================================================
+ynh_script_progression --message="Updating a configuration file..." --weight=1
+
+ynh_add_config --template="htconfig.sample.php" --destination="$install_dir/.htconfig.php"
+
+chmod 600 "$install_dir/.htconfig.php"
+chown "$app:$app" "$install_dir/.htconfig.php"
+
+#=================================================
+# END OF SCRIPT
+#=================================================
+
+ynh_script_progression --message="Change of URL completed for $app" --last

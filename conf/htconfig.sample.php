@@ -1,13 +1,13 @@
 <?php
 
-// If automatic system installation fails: 
+// If automatic system installation fails:
 
-// Copy or rename this file to .htconfig.php in the top level 
+// Copy or rename this file to .htconfig.php in the top level
 // Hubzilla directory
 
 // Why .htconfig.php? Because it contains sensitive information which could
-// give somebody complete control of your database. Apache's default 
-// configuration denies access to and refuses to serve any file beginning 
+// give somebody complete control of your database. Apache's default
+// configuration denies access to and refuses to serve any file beginning
 // with .ht
 
 // Then set the following for your MySQL installation
@@ -17,19 +17,19 @@ $db_port = 0;                    // leave 0 for default or set your port
 $db_user = '__DB_USER__';
 $db_pass = '__DB_PWD__';
 $db_data = '__DB_NAME__';
-$db_type = __DB_TYPE__; // use 1 for postgres, 0 for mysql
+$db_type = 1; // use 1 for postgres, 0 for mysql
 
 /*
- * Notice: Many of the following settings will be available in the admin panel 
+ * Notice: Many of the following settings will be available in the admin panel
  * after a successful site install. Once they are set in the admin panel, they
  * are stored in the DB - and the DB setting will over-ride any corresponding
  * setting in this file
  *
- * The command-line tool util/config is able to query and set the DB items 
+ * The command-line tool util/config is able to query and set the DB items
  * directly if for some reason the admin panel is not available and a system
- * setting requires modification. 
+ * setting requires modification.
  *
- */ 
+ */
 
 
 // Choose a legal default timezone. If you are unsure, use "America/Los_Angeles".
@@ -55,11 +55,11 @@ App::$config['system']['ssl_cookie_protection'] = 1;
 
 
 // Your choices are REGISTER_OPEN, REGISTER_APPROVE, or REGISTER_CLOSED.
-// Be certain to create your own personal account before setting 
-// REGISTER_CLOSED. 'register_text' (if set) will be displayed prominently on 
+// Be certain to create your own personal account before setting
+// REGISTER_CLOSED. 'register_text' (if set) will be displayed prominently on
 // the registration page. REGISTER_APPROVE requires you set 'admin_email'
 // to the email address of an already registered person who can authorise
-// and/or approve/deny the request. 
+// and/or approve/deny the request.
 
 // In order to perform system administration via the admin panel, admin_email
 // must precisely match the email address of the person logged in.
@@ -90,9 +90,9 @@ App::$config['system']['directory_mode']  = DIRECTORY_MODE_NORMAL;
 ini_set('display_errors', '0');
 
 // Uncomment the following 4 lines to turn on PHP error logging.
-error_reporting(E_ERROR | E_PARSE ); 
-ini_set('error_log','php.out'); 
-ini_set('log_errors','1'); 
+error_reporting(E_ERROR | E_PARSE );
+ini_set('error_log','php.out');
+ini_set('log_errors','1');
 
 App::$config['system']['addon'] = 'ldapauth';
 
