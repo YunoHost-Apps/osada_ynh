@@ -52,7 +52,7 @@ ynh_script_progression --message="Upgrading source files..."
 
 # Download, check integrity, uncompress and patch the source from app.src
 ynh_setup_source --dest_dir="$install_dir" --full_replace=1 --keep="store/ .htconfig.php php.log"
-ynh_setup_source --dest_dir="$install_dir/addon" --source_id="app_addons"
+ynh_setup_source --dest_dir="$install_dir/addon" --source_id="app_addons" --full_replace=1
 
 mkdir -p "$install_dir/store"
 mkdir -p  "$install_dir/cache/smarty3"
