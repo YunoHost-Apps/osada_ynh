@@ -19,7 +19,7 @@ Il NE doit PAS être modifié à la main.
 [Osada](http://zotlabs.com/osada/) uses **Zot6 protocol** which is next version of **zot5 protocol**. Osada has native support for the **ActivityPub protocol** (W3C standard) as well as the more advanced features. It can inter-operate with other social networking applications and projects in either of these spaces, including **Mastodon, Pleroma, Pixelfed, PeerTube, Funkwhale, Zap, Friendica, Hubzilla,** and many more.
 
 
-**Version incluse :** 23.12.17~ynh1
+**Version incluse :** 23.12.17~ynh2
 
 ## Captures d’écran
 
@@ -27,7 +27,7 @@ Il NE doit PAS être modifié à la main.
 
 ## :red_circle: Anti-fonctionnalités
 
-- **Application non maintenue**: Ce logiciel n'est plus maintenu. Attendez-vous à ce qu'il ne fonctionne plus avec le temps, et que l'on découvre des failles de sécurité qui ne seront pas corrigées, etc.
+- **Application non maintenue **: Ce logiciel n'est plus maintenu. Attendez-vous à ce qu'il ne fonctionne plus avec le temps, et que l'on découvre des failles de sécurité qui ne seront pas corrigées, etc.
 
 ## Documentations et ressources
 
