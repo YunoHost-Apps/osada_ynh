@@ -3,7 +3,7 @@
 请勿手动编辑。
 -->
 
-# YunoHost 的 Osada
+# YunoHost 上的 Osada
 
 [![集成程度](https://dash.yunohost.org/integration/osada.svg)](https://dash.yunohost.org/appci/app/osada) ![工作状态](https://ci-apps.yunohost.org/ci/badges/osada.status.svg) ![维护状态](https://ci-apps.yunohost.org/ci/badges/osada.maintain.svg)
 
